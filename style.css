@@ -1,5 +1,7 @@
-.avatar {
-    box-sizing: content-box;
+.avatar img {
+    width: 20%;
+    height: auto;
+    border-radius: 20%;
 }
 
 .username{
@@ -9,24 +11,83 @@
 
 
 .navigation ul {
-    color: #44405f;
+    box-sizing: border-box;
+    background-color: #44508e;
     text-align: center;
     stroke-linecap: round;
 }
 
 .navigation li {
+    background-color: #e0e0e0b6;
+    text-align: center;
+    stroke-linecap: round;
     display: inline;
 }
 
 .navigation li:hover {
-    background-color: rgb(23, 14, 67);
+    background-color: rgba(28, 21, 64, 0.566);
 }
 
 body {
-    background: rgba(2, 36, 48);    
+    background: rgb(29, 23, 35);    
 }
 
 .username p {
     color: aliceblue;
     display: inline;
+}
+
+.connectedUsers img {
+    width: 5%;
+    height: auto;
+    border-radius: 100%;
+}
+
+.connectedUsers li {
+    
+    display: inline;
+}
+
+p {
+    color: aliceblue;
+}
+
+.urlForVideo {
+
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.urlForVideo label {
+    color: aliceblue;
+}
+
+.join {
+    
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.join label {
+    color: aliceblue;
+}
+
+#Hello {
+    font-size: 5em;
+    text-align: center;
+}
+
+#clickMe {
+    float: left;
+}
+
+#account {
+    font-size: 2em;
+}
+
+#gaid {
+    font:  sans-serif;
+    text-align: center;
 }
