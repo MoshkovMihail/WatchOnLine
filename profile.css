@@ -1,0 +1,17 @@
+.avatar img {
+    width: 20%;
+    height: auto;
+    border-radius: 20%;
+}
+
+.username{
+    color: #d8d104;
+}
+
+#account {
+    font-size: 2em;
+}
+
+.username p {
+    display: inline;
+}

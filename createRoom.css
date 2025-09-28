@@ -1,0 +1,15 @@
+.urlForVideo {
+
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.urlForVideo label {
+    color: aliceblue;
+}
+
+
+#clickMe {
+    float: left;
+}
