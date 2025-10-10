@@ -5,17 +5,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.regex.Pattern;
 
 @WebServlet("/registration")
-public class MyServlet extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -82,7 +80,8 @@ public class MyServlet extends HttpServlet {
     private void safeInFile(String login, String email, String password) throws IOException {
 
         try{
-            PrintWriter pw = new PrintWriter(new FileWriter(login + ".txt"));
+            FileWriter out = new FileWriter(login + ".txt");
+            PrintWriter pw = new PrintWriter(out);
 
             pw.println(login);
             pw.println(email);
