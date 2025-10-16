@@ -1,10 +1,10 @@
 package servlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,8 +20,7 @@ public class RegistrationServlet extends HttpServlet {
 //        resp.setContentType("text/html");
 //        PrintWriter printWriter = resp.getWriter();
 //        printWriter.write("Hello");
-
-        resp.sendRedirect("registration.html");
+        req.getRequestDispatcher("html/registration.html").forward(req, resp);
     }
 
     @Override

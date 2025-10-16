@@ -1,0 +1,12 @@
+models\Video.class
+servlet\CreateRoomServlet.class
+servlet\ProfileServlet.class
+servlet\PrikolsServlet.class
+servlet\VideoQueue.class
+servlet\ConnectToRoomServlet.class
+models\User.class
+App.class
+servlet\RegistrationServlet.class
+servlet\RoomServlet.class
+dao\DataClass.class
+servlet\IndexServlet.class
