@@ -34,7 +34,7 @@ public class VideoQueue extends HttpServlet {
             pw.write("<p>" + video.getLink() + "</p>");
         }
 
-        req.getRequestDispatcher("html/queue.html").forward(req, resp);
+        req.getRequestDispatcher("/html/queue.html").forward(req, resp);
     }
 
     @Override
