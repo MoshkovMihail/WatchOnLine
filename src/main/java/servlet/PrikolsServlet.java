@@ -11,6 +11,6 @@ import java.io.IOException;
 public class PrikolsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("html/prikols.html").forward(req, resp);
+        req.getRequestDispatcher("/html/prikols.html").forward(req, resp);
     }
 }

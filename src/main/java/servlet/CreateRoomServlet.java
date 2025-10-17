@@ -12,7 +12,7 @@ public class CreateRoomServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("html/createRoom.html").forward(req, resp);
+        req.getRequestDispatcher("/html/createRoom.html").forward(req, resp);
     }
 
     @Override

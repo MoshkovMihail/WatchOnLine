@@ -20,7 +20,7 @@ public class RegistrationServlet extends HttpServlet {
 //        resp.setContentType("text/html");
 //        PrintWriter printWriter = resp.getWriter();
 //        printWriter.write("Hello");
-        req.getRequestDispatcher("html/registration.html").forward(req, resp);
+        req.getRequestDispatcher("/html/registration.html").forward(req, resp);
     }
 
     @Override

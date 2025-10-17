@@ -45,8 +45,8 @@ public class DataClass {
     }
 
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/test",
-                "postgres", "qwerty007");
+        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/WatchOnLine",
+                "postgres", "postgres");
     }
 
     private User convertFromResultSet(ResultSet rs) throws SQLException {
