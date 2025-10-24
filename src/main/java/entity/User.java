@@ -1,8 +1,4 @@
-package models;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package entity;
 
 //@Data
 //@AllArgsConstructor
@@ -40,5 +36,12 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    private User authentificateUser(String username, String password) {
+
+
+        return null;
     }
 }

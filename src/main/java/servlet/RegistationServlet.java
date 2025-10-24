@@ -1,10 +1,16 @@
 package servlet;
 
+import dao.DataClass;
+import entity.UserEntity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import service.UserServiceImpl;
+import util.HashUtil;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,14 +18,23 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Этот сервлет должен отрабатывать,
+ * когда пользователь захочет рзарегистрироваться в приложении
+ */
 @WebServlet("/registration")
-public class RegistrationServlet extends HttpServlet {
+public class RegistationServlet extends HttpServlet {
+    private UserServiceImpl userService;
+
+    @Override
+    public void init() throws ServletException {
+        this.userService = new UserServiceImpl(new DataClass());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        resp.setContentType("text/html");
-//        PrintWriter printWriter = resp.getWriter();
-//        printWriter.write("Hello");
+        HttpSession session = req.getSession();
+
         req.getRequestDispatcher("/html/registration.html").forward(req, resp);
     }
 
@@ -34,9 +49,11 @@ public class RegistrationServlet extends HttpServlet {
         PrintWriter printWriter = resp.getWriter();
         String errorMessage = null;
 
-        if (login == null) {
-            errorMessage = "Логин не может быть пустым";
-        } else if (email == null) {
+        if (login == null || login.trim().isBlank() ) {
+            errorMessage = "Username не может быть пустым";
+        }else if (userService.isUserExist(login)){
+            errorMessage = "имя пользователя уже занято";
+        } else if (email == null || email.trim().isBlank() ) {
             errorMessage = "Email не может быть пустым";
         } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             errorMessage = "Введите корректный email";
@@ -50,15 +67,21 @@ public class RegistrationServlet extends HttpServlet {
             return;
         }
 
+        password = HashUtil.hashPassword(password);
+
+        userService.saveUserInDb(login, email, password);
+        resp.sendRedirect("/login");
         printWriter.write("Спасибо");
 
-        safeInFile(login, email, password);
+        //safeInFile(login, email, password);
 
         printWriter.close();
+
+
     }
 
     private String getHtmlWithError(String errorMessage, String login, String email) throws IOException {
-        String htmlPath = getServletContext().getRealPath("/registration.html");
+        String htmlPath = getServletContext().getRealPath("/html/registration.html");
         String htmlContent = new String(Files.readAllBytes(Paths.get(htmlPath)), StandardCharsets.UTF_8);
 
 

@@ -1,0 +1,71 @@
+.navigation ul {
+    box-sizing: border-box;
+    background-color: #44508e;
+    text-align: center;
+    stroke-linecap: round;
+}
+
+.navigation li {
+    text-align: center;
+    display: inline;
+}
+
+.navigation li:hover {
+    background-color: rgba(28, 21, 64, 0.566);
+}
+
+body {
+    background: rgb(29, 23, 35);    
+}
+
+
+p {
+    color: aliceblue;
+}
+
+
+#buttonForChangeTheme {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* Кнопка выпадающего списка */
+.dropbtn {
+  width: 160px;
+  background-color: #5b99f6;
+  border: none;
+  cursor: pointer;
+}
+
+/* Кнопка выпадающего меню при наведении и фокусировке */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #11669f;
+}
+
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+  width: 160px;
+  position: relative;
+  display: inline-block;
+}
+
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f19c;
+  min-width: 140px;
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content a {
+  color: black;
+  padding: 9px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+.show {display:block;}

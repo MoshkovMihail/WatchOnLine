@@ -1,0 +1,11 @@
+
+.connectedUsers img {
+    width: 5%;
+    height: auto;
+    border-radius: 100%;
+}
+
+.connectedUsers li {
+    
+    display: inline;
+}

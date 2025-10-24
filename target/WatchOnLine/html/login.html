@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/login.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>WatchOnLine</title>
+    <script src="../js/script.js"></script>
+    <script src="../js/registration.js"></script>
+</head>
+<body>
+<nav class="navigation">
+    <ul>
+        <button id="buttonForChangeTheme" onclick="changeTheme()">🌙</button>
+        <li><a href="/index"><button class="dropbtn">на главную</button></a></li>
+
+        <li>
+            <div class="dropdown">
+                <button onclick="accounts()" class="dropbtn">аккаунт</button>
+                <div id="accounts" class="dropdown-content">
+                    <a href="/registration">зарегистрироваться</a>
+                    <a href="/login">войти в аккаунт</a>
+                    <a href="/profile">настроить аккаунт</a>
+                </div>
+            </div>
+        </li>
+
+        <li>
+            <div class="dropdown">
+                <button onclick="rooms()" class="dropbtn">к комнатам</button>
+                <div id="rooms" class="dropdown-content">
+                    <a href="/createRoom">создать комнату</a>
+                    <a href="/connectToRoom">присоединиться к существующей комнате</a>
+                </div>
+            </div>
+        </li>
+
+        <li><a href="/prikols"><button class="dropbtn">всякие приколы</button></a></li>
+    </ul>
+</nav>
+
+
+
+<form action="/login" method="post" id="loginForm">
+    <div class="form-group">
+        <input type="text" id="login" name="login" placeholder="Логин">
+        <div class="error" id="loginError"></div>
+    </div>
+
+    <div class="form-group">
+        <input type="password" id="password" name="password" placeholder="Пароль">
+        <div class="error" id="passwordError"></div>
+    </div>
+
+    <button type="submit">войти</button>
+</form>
+
+<div class="success" id="successMessage"></div>
+
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 package servlet;
 
-import models.Video;
+import entity.Video;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
