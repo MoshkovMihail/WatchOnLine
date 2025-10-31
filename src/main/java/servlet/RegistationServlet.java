@@ -35,7 +35,7 @@ public class RegistationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        req.getRequestDispatcher("/html/registration.html").forward(req, resp);
+        req.getRequestDispatcher("/jsp/registration.jsp").forward(req, resp);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class RegistationServlet extends HttpServlet {
     }
 
     private String getHtmlWithError(String errorMessage, String login, String email) throws IOException {
-        String htmlPath = getServletContext().getRealPath("/html/registration.html");
+        String htmlPath = getServletContext().getRealPath("/html/registration.jsp");
         String htmlContent = new String(Files.readAllBytes(Paths.get(htmlPath)), StandardCharsets.UTF_8);
 
 

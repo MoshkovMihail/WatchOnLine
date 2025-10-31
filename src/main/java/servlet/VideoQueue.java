@@ -20,7 +20,7 @@ import java.util.List;
 public class VideoQueue extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String htmlPath = getServletContext().getRealPath("/queue.html");
+        String htmlPath = getServletContext().getRealPath("/queue.jsp");
         String htmlContent = new String(Files.readAllBytes(Paths.get(htmlPath)), StandardCharsets.UTF_8);
 
         HttpSession session = req.getSession();
@@ -34,7 +34,7 @@ public class VideoQueue extends HttpServlet {
             pw.write("<p>" + video.getLink() + "</p>");
         }
 
-        req.getRequestDispatcher("/html/queue.html").forward(req, resp);
+        req.getRequestDispatcher("/html/queue.jsp").forward(req, resp);
     }
 
     @Override

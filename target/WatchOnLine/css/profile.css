@@ -8,6 +8,14 @@
     color: #d8d104;
 }
 
+.email{
+   color: #d8d104;
+}
+
+.email p {
+    display: inline;
+}
+
 #account {
     font-size: 2em;
 }

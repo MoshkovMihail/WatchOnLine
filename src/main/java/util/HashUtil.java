@@ -15,6 +15,4 @@ public class HashUtil {
     public static boolean verify(String raw, String hashed) {
         return BCrypt.checkpw(raw, hashed);
     }
-
-
 }

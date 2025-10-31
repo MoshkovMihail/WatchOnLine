@@ -22,7 +22,7 @@ import java.io.IOException;
  * <p>
  * Не отрабатывает на общедоступные URL'ы
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class AuthorisationFilter extends HttpFilter {
     @Override
     public void doFilter(ServletRequest req,

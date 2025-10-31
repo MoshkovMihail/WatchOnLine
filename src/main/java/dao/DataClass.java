@@ -63,7 +63,7 @@ public class DataClass {
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, username);
             ps.setString(2, email);
-            ps.setString(3, HashUtil.hashPassword(password)); // хешируем пароль
+            ps.setString(3, password);
             ps.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
