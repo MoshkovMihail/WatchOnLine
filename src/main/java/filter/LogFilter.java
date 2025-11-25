@@ -19,6 +19,20 @@ public class LogFilter extends HttpFilter {
         String uri = req.getRequestURI();
         LocalDateTime time = LocalDateTime.now();
 
+        HttpServletRequest request = (HttpServletRequest) req;
+
+        String requestURI = ((HttpServletRequest) req).getRequestURI();
+
+        if (requestURI.startsWith(request.getContextPath() + "/css") ||
+                requestURI.startsWith(request.getContextPath() + "/js") ||
+                requestURI.startsWith(request.getContextPath() + "/images") ||
+                requestURI.endsWith(".png") ||
+                requestURI.endsWith(".jpg") ||
+                requestURI.endsWith(".gif")) {
+            chain.doFilter(req, res);
+            return;
+        }
+
         System.out.println("log: " + "session id = " + session.getId() + " \n" + "time = " + time + "\n" + "URI = " + uri + "\n");
         chain.doFilter(req, res);
     }

@@ -1,52 +1,47 @@
 package servlet;
 
-import dao.DataClass;
-import entity.UserEntity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import service.UserServiceImpl;
-import util.HashUtil;
-
-import java.io.FileWriter;
+import service.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-/**
- * Этот сервлет должен отрабатывать,
- * когда пользователь захочет рзарегистрироваться в приложении
- */
 @WebServlet("/registration")
 public class RegistationServlet extends HttpServlet {
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
-        this.userService = new UserServiceImpl(new DataClass());
+        this.userService = (UserService) getServletContext().getAttribute("userService");
+        if (userService == null) {
+            throw new IllegalStateException("userService s null");
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-
         req.getRequestDispatcher("/jsp/registration.jsp").forward(req, resp);
+        String ctx = req.getContextPath();
+        System.out.println(ctx);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+
+        String ctx = req.getContextPath();
+        System.out.println(ctx);
 
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        resp.setContentType("text/html;charset=UTF-8");
-        PrintWriter printWriter = resp.getWriter();
+        System.out.println("LOGIN FROM REQUEST = " + login);
+
         String errorMessage = null;
 
         if (login == null || login.trim().isBlank() ) {
@@ -62,56 +57,17 @@ public class RegistationServlet extends HttpServlet {
         }
 
         if (errorMessage != null) {
-            String htmlContent = getHtmlWithError(errorMessage, login, email);
-            printWriter.write(htmlContent);
+            req.setAttribute("error_message", errorMessage);
+
+            req.setAttribute("login", login);
+            req.setAttribute("password", password);
+
+            req.getRequestDispatcher("/jsp/registration.jsp").forward(req, resp);
             return;
         }
 
-        password = HashUtil.hashPassword(password);
-
         userService.saveUserInDb(login, email, password);
-        resp.sendRedirect("/login");
-        printWriter.write("Спасибо");
 
-        //safeInFile(login, email, password);
-
-        printWriter.close();
-
-
-    }
-
-    private String getHtmlWithError(String errorMessage, String login, String email) throws IOException {
-        String htmlPath = getServletContext().getRealPath("/html/registration.jsp");
-        String htmlContent = new String(Files.readAllBytes(Paths.get(htmlPath)), StandardCharsets.UTF_8);
-
-
-        String errorDiv = "<div class='error-message' style='color: red; text-align: center; padding: 20px; margin: 20px; border: 2px solid red; background: #ffeeee;'>"
-                + "<strong>Ошибка:</strong> " + errorMessage
-                + "</div>";
-
-
-        htmlContent = htmlContent.replace("placeholder=\"Логин\"", "placeholder=\"Логин\" value=\"" + (login != null ? login : "") + "\"");
-        htmlContent = htmlContent.replace("placeholder=\"Email\"", "placeholder=\"Email\" value=\"" + (email != null ? email : "") + "\"");
-
-
-        htmlContent = htmlContent.replace("<form action=\"registration\"", errorDiv + "<form action=\"registration\"");
-
-        return htmlContent;
-    }
-
-    private void safeInFile(String login, String email, String password) throws IOException {
-
-        try{
-            FileWriter out = new FileWriter(login + ".txt");
-            PrintWriter pw = new PrintWriter(out);
-
-            pw.println(login);
-            pw.println(email);
-            pw.println(password);
-
-            pw.close();
-        } catch (IOException e){
-            System.out.println("Ошибка при записи файла");
-        }
+        resp.sendRedirect(ctx + "/login");
     }
 }

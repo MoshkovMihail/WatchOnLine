@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="false" type="J2EE_WEB_MODULE" version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$" dumb="true">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+  </component>
+  <component name="WebModuleBuildComponent">
+    <setting name="EXPLODED_URL" value="file://$MODULE_DIR$/target/WatchOnLine" />
+  </component>
+  <component name="WebModuleProperties">
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/lombok-1.18.32.jar" />
+      <url>jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="0" />
+      <attribute name="URI" value="/WEB-INF/lib/jakarta.servlet-api-6.0.0.jar" />
+      <url>jar://$MAVEN_REPOSITORY$/jakarta/servlet/jakarta.servlet-api/6.0.0/jakarta.servlet-api-6.0.0.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/postgresql-42.7.8.jar" />
+      <url>jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.7.8/postgresql-42.7.8.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/checker-qual-3.49.5.jar" />
+      <url>jar://$MAVEN_REPOSITORY$/org/checkerframework/checker-qual/3.49.5/checker-qual-3.49.5.jar!/</url>
+    </containerElement>
+    <deploymentDescriptor version="2.3" name="web.xml" optional="false" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
+    <webroots>
+      <root relative="/" url="file://$MODULE_DIR$/src/main/webapp" />
+    </webroots>
+  </component>
+</module>

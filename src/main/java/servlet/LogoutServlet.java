@@ -20,6 +20,9 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = req.getSession();
         session.removeAttribute("user");
         session.invalidate();
-        resp.sendRedirect("/index");
+
+        String ctx = req.getContextPath();
+
+        resp.sendRedirect(ctx + "/index");
     }
 }

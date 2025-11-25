@@ -1,6 +1,5 @@
 package servlet;
 
-import dao.DataClass;
 import entity.UserEntity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,23 +8,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.UserService;
-import service.UserServiceImpl;
-import util.HashUtil;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
-        this.userService = new UserServiceImpl(new DataClass());
+        this.userService = (UserService) getServletContext().getAttribute("userService");
+        if (userService == null) {
+            throw new IllegalStateException("userService s null");
+        }
     }
 
     @Override
@@ -37,16 +32,22 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-
+        String ctx = req.getContextPath();
 
         UserEntity user = userService.authenticateUser(login, password);
 
         if (user == null) {
-            resp.sendRedirect("/login?error=User does not exist");
+
+            req.setAttribute("error_message","Имя пользователя или пароль введены неправильно, попробуйте снова");
+
+            req.setAttribute("login", login);
+            req.setAttribute("password", password);
+
+            req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
         } else {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            resp.sendRedirect("/profile");
+            resp.sendRedirect(ctx + "/profile");
         }
 
     }

@@ -29,18 +29,35 @@ public class AuthorisationFilter extends HttpFilter {
                          ServletResponse resp,
                          FilterChain chain) throws IOException, ServletException {
         String requestURI = ((HttpServletRequest) req).getRequestURI();
+        String ctx = ((HttpServletRequest) req).getContextPath();
 
-        if (requestURI.equals("/index")
-                || requestURI.equals("/registration")
-                || requestURI.equals("/login")) {
+        HttpServletRequest request = (HttpServletRequest) req;
+
+        if (requestURI.startsWith(request.getContextPath() + "/css") ||
+                requestURI.startsWith(request.getContextPath() + "/js") ||
+                requestURI.startsWith(request.getContextPath() + "/images") ||
+                requestURI.endsWith(".png") ||
+                requestURI.endsWith(".jpg") ||
+                requestURI.endsWith(".gif")) {
             chain.doFilter(req, resp);
+            return;
+        }
+
+
+        if (requestURI.equals(ctx + "/index")
+                || requestURI.equals(ctx + "/registration")
+                || requestURI.equals(ctx + "/login")) {
+            chain.doFilter(req, resp);
+            return;
         } else {
             HttpSession session = ((HttpServletRequest) req).getSession(false);
 
             if (session == null || session.getAttribute("user") == null) {
-                ((HttpServletResponse) resp).sendRedirect("/registration");
+                ((HttpServletResponse) resp).sendRedirect(ctx + "/registration");
+                return;
             } else {
                 chain.doFilter(req, resp);
+                return;
             }
         }
     }

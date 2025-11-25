@@ -15,4 +15,8 @@ public class HashUtil {
     public static boolean verify(String raw, String hashed) {
         return BCrypt.checkpw(raw, hashed);
     }
+
+    public static void main(String[] args) {
+        System.out.println( verify("1234", "$2a$12$r/fcZpguHyxdFKNwKgbqxukH9CWoB921aNjiMBFh5lHznDMk5JynG"));
+    }
 }

@@ -1,21 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link href="../css/style.css" rel="stylesheet">
-     <link href="../css/profile.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
+     <link href="${pageContext.request.contextPath}/css/profile.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>WatchOnLine</title>
-    <script src="../js/script.js"></script>
+    <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 
 
 <body>
     <jsp:include page="navbar.jsp"/>
 
-    <form action="/logout" method="post">
+    <form action="${pageContext.request.contextPath}/logout" method="post">
         <button>Выйти из аккаунта</button>
     </form>
 
@@ -35,7 +35,7 @@
 
     <div class="email">
         <p>email:</p>
-        <c:out value="${email}"/>
+        <p><c:out value="${email}"/></p>
     </div>
 
     <div class="password"></div>

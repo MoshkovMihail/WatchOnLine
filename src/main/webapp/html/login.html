@@ -41,7 +41,7 @@
 
 
 
-<form action="/login" method="post" id="loginForm">
+<form action="${pageContext.request.contextPath}/login" method="post" id="loginForm">
     <div class="form-group">
         <input type="text" id="login" name="login" placeholder="Логин">
         <div class="error" id="loginError"></div>
