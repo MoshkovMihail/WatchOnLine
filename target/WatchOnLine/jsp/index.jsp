@@ -6,16 +6,16 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>WatchOnLine</title>
+    <title>ToDo2Gether</title>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="/jsp/header.jsp"/>
 
 
     <strong>
         <div id="Hello">
-             <p>Добро пожаловать на WatchOnLine</p>
+             <p>Добро пожаловать на ToDo2Gether</p>
         </div>
 
 

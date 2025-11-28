@@ -7,12 +7,12 @@
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>WatchOnLine</title>
+    <title>ToDo2Gether</title>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
     <script src="${pageContext.request.contextPath}/js/registration.js"></script>
 </head>
 <body>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="/jsp/header.jsp"/>
 
 <form action="${pageContext.request.contextPath}/login" method="post" id="loginForm">
     <div class="form-group">

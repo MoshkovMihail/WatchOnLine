@@ -40,4 +40,18 @@ public class UserServiceImpl implements UserService {
     public boolean isUserExist(String username){
         return userDAO.isUserExist(username);
     }
+
+    public void deleteUserById(Long id) {
+        userDAO.deleteUserById(id);
+    }
+
+    @Override
+    public boolean updateUsername(String newUsername, Long id) {
+        if(newUsername == null || newUsername.trim().isBlank() || userDAO.isUserExist(newUsername)){
+            return false;
+        }
+
+        userDAO.updateUsername(newUsername, id);
+        return true;
+    }
 }

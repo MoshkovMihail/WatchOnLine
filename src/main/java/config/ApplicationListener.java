@@ -1,12 +1,13 @@
 package config;
 
+import dao.RoomDAO;
+import dao.ToDoListDAO;
 import dao.UserDAO;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import service.UserService;
-import service.UserServiceImpl;
+import service.*;
 
 @WebListener
 public class ApplicationListener implements ServletContextListener {
@@ -15,12 +16,16 @@ public class ApplicationListener implements ServletContextListener {
         ServletContext context  = sce.getServletContext();
 
         UserDAO userDAO = new UserDAO();
-
-        userDAO.createUserTable();
-
         UserService userService = new UserServiceImpl(userDAO);
-
         context.setAttribute("userService", userService);
+
+        RoomDAO roomDAO = new RoomDAO();
+        RoomService roomService = new RoomServiceImpl(roomDAO);
+        context.setAttribute("roomService", roomService);
+
+        ToDoListDAO toDoListDAO= new ToDoListDAO();
+        ToDoListService toDoListService = new ToDoListServiceImpl(toDoListDAO);
+        context.setAttribute("toDoListService", toDoListService);
         //todo перенести все сервисы сюда в контекст
     }
 }

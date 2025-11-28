@@ -1,9 +1,19 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
+
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 public class ToDoListEntity {
-    List<String> tasks = new ArrayList<>();
-
+    private Long id;
+    private Long roomId;
+    private String name;
+    private Long createdBy;
+    private Timestamp createdAt;
 }

@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class ConnectionManager {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/WatchOnLine";
+    private static final String URL = "jdbc:postgresql://localhost:5432/ToDo2Gether";
     private static final String USER = "postgres";
     private static final String PASSWORD = "postgres";
 

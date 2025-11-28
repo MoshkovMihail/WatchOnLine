@@ -5,18 +5,22 @@
 <html lang="ru">
 <head>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
-     <link href="${pageContext.request.contextPath}/css/profile.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/profile.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>WatchOnLine</title>
+    <title>ToDo2Gether</title>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 
-
 <body>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="/jsp/header.jsp"/>
 
     <form action="${pageContext.request.contextPath}/logout" method="post">
         <button>Выйти из аккаунта</button>
+    </form>
+
+    <form action="${pageContext.request.contextPath}/deleteUser" method="post"
+        onsubmit="return confirm('Точно удалить аккаунт? его потом уже не востановить');">
+        <button>Удалить аккаунт навсегда и без восстановления</button>
     </form>
 
     <div id="account">
@@ -24,20 +28,49 @@
     </div>
 
     <div class="avatar">
-        <img src="https://avatars.mds.yandex.net/i?id=040a43fa7959ca912ba74ab04414cec8806fd586-5325046-images-thumbs&n=13" alt="Авы нету("/>
+        <img src="${pageContext.request.contextPath}${user.avatarPath}" alt="Авы нету("/>
     </div>
 
+    <form action="${pageContext.request.contextPath}/uploadAvatar"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input type="file" name="avatar">
+        <button type="submit">Загрузить аватар</button>
+    </form>
 
     <div class="username">
         <p>username:</p>
-        <c:out value="${username}"/>
+        <c:out value="${user.username}"/>
     </div>
 
     <div class="email">
         <p>email:</p>
-        <p><c:out value="${email}"/></p>
+        <p><c:out value="${user.email}"/></p>
     </div>
 
-    <div class="password"></div>
+    <h2>Изменить имя пользователя</h2>
+
+    <c:if test="${not empty error_message}">
+        <div class="error">
+            <c:out value="${error_message}"/>
+        </div>
+    </c:if>
+
+    <c:if test="${not empty success_message}">
+        <div class="success">
+            <c:out value="${success_message}"/>
+        </div>
+    </c:if>
+
+    <form action="${pageContext.request.contextPath}/updateUsername" method="post">
+        <label for="newUsername">Новое имя пользователя:</label>
+        <input type="text"
+               id="newUsername"
+               name="newUsername"
+               value="${user.username}" />
+
+        <button type="submit">Сохранить</button>
+    </form>
 </body>
 </html>

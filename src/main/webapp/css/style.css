@@ -69,3 +69,60 @@ p {
 
 /* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
 .show {display:block;}
+
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* ===== ТЁМНАЯ ТЕМА (по умолчанию) =================== */
+:root {
+    --btn-bg: #22c55e;             /* зелёная кнопка */
+    --btn-bg-hover: #16a34a;
+    --btn-text: #ecfdf5;
+
+    --btn-secondary-bg: rgba(255,255,255,0.1);
+    --btn-secondary-border: rgba(255,255,255,0.3);
+    --btn-secondary-text: aliceblue;
+}
+
+/* ===== СВЕТЛАЯ ТЕМА ================================== */
+body.light-theme {
+    --btn-bg: #2563eb;            /* синяя кнопка */
+    --btn-bg-hover: #1d4ed8;
+    --btn-text: white;
+
+    --btn-secondary-bg: rgba(0,0,0,0.05);
+    --btn-secondary-border: rgba(0,0,0,0.30);
+    --btn-secondary-text: #111;
+}
+
+/* === ТЁМНАЯ ТЕМА (по умолчанию) ===================== */
+:root {
+    --text-main: aliceblue;
+    --text-muted: rgb(180, 180, 190);
+    --bg-main: rgb(29, 23, 35);
+}
+
+/* === СВЕТЛАЯ ТЕМА =================================== */
+body.light-theme {
+    --text-main: rgb(29, 23, 35);
+    --text-muted: rgb(70, 70, 80);
+    --bg-main: aliceblue;
+}
+
+/* === ПРИМЕНЕНИЕ ТЕМЫ ================================ */
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+/* Все элементы текста наследуют цвет от body */
+p, h1, h2, h3, h4, h5, h6,
+span, a, li, ul, ol,
+label, input, button,
+strong, em, small, div {
+    color: inherit;
+}

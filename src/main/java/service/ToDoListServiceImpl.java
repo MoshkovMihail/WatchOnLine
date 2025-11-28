@@ -1,15 +1,23 @@
 package service;
 
-import entity.RoomEntity;
+import dao.ToDoListDAO;
 import entity.ToDoListEntity;
+import lombok.RequiredArgsConstructor;
 
-public class ToDoListServiceImpl implements ToDoListService{
-    public boolean createEmptyToDoList(RoomEntity room) {
-        return false;
+import java.util.List;
+
+@RequiredArgsConstructor
+public class ToDoListServiceImpl implements ToDoListService {
+
+    private final ToDoListDAO toDoListDAO;
+
+    @Override
+    public List<ToDoListEntity> findByRoomId(long roomId) {
+        return toDoListDAO.findByRoomId(roomId);
     }
 
-    public boolean addTaskInToDoList(ToDoListEntity list){
-        return false;
+    @Override
+    public ToDoListEntity create(long roomId, long userId, String name) {
+        return toDoListDAO.create(roomId, name, userId);
     }
-
 }

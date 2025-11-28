@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -10,14 +11,16 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-    <jsp:include page="navbar.jsp"/>
-    <div class="urlForVideo">
-        <label for="name"><p>Введите ссылку на видео</p></label>
-        <input type="text" id = "name"/>
-        <button> Создать комнату </button>
-        <a href="/room">в комнату (временная ссылка)</a>
-    </div>
-    
+    <jsp:include page="/jsp/header.jsp"/>
+    <form action="${pageContext.request.contextPath}/createRoom" method="post" id="regForm">
+
+        <label for="name"><p>Введите название комнаты</p></label>
+        <c:if test="${not empty error_message}">
+             <div class="error">${error_message}</div>
+        </c:if>
+        <input type="text" name = "name"/>
+        <button type= "submit"> Создать комнату </button>
+    </form>
 <div id="clickMe">
         
 </div>

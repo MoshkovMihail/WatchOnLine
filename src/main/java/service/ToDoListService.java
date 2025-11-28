@@ -1,12 +1,12 @@
 package service;
 
-import entity.RoomEntity;
 import entity.ToDoListEntity;
 
+import java.util.List;
+
 public interface ToDoListService {
-    boolean createEmptyToDoList(RoomEntity room);
 
-    boolean addTaskInToDoList(ToDoListEntity list);
+    List<ToDoListEntity> findByRoomId(long roomId);
 
-
+    ToDoListEntity create(long roomId, long userId, String name);
 }

@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import service.UserService;
 import java.io.IOException;
 
@@ -24,9 +23,6 @@ public class RegistationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/jsp/registration.jsp").forward(req, resp);
-        String ctx = req.getContextPath();
-        System.out.println(ctx);
-
     }
 
     @Override
@@ -40,7 +36,6 @@ public class RegistationServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        System.out.println("LOGIN FROM REQUEST = " + login);
 
         String errorMessage = null;
 

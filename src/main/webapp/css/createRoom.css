@@ -9,6 +9,10 @@
     color: aliceblue;
 }
 
+.error {
+    color: red;
+    font-size: 14px;
+}
 
 #clickMe {
     float: left;

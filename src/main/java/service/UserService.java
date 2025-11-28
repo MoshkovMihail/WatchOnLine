@@ -8,4 +8,8 @@ public interface UserService {
     boolean saveUserInDb(String username, String email, String password);
 
     boolean isUserExist(String username);
+
+    void deleteUserById(Long id);
+
+    boolean updateUsername(String newUsername, Long id);
 }

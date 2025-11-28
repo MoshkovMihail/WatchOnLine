@@ -2,54 +2,39 @@
 
 
 
-// Смена темы //
-function changeTheme() {
-    const button = document.getElementById("buttonForChangeTheme");
-    if (button.textContent === '🌙') {
-        setLightTheme();
-    } else {
-        setDarkTheme();
+document.addEventListener('click', (e) => {
+    const isDropdown = e.target.closest('.dropdown');
+    const isThemeButton = e.target.id === 'buttonForChangeTheme';
+
+    if (!isDropdown && !isThemeButton) {
+        document.querySelectorAll('.dropdown-content.open')
+            .forEach(d => d.classList.remove('open'));
     }
-
-}
-
-window.addEventListener('load', function() {
-    const currentTheme = localStorage.getItem('theme');
-
-    if (currentTheme === 'dark') {
-        setDarkTheme();
-    } else {
-        setLightTheme();
-    }
-
 });
 
-function setLightTheme() {
+document.addEventListener("DOMContentLoaded", () => {
+    const saved = localStorage.getItem("theme");
+
+    if (saved === "light") {
+        document.body.classList.add("light-theme");
+        document.getElementById("buttonForChangeTheme").textContent = "☀️";
+    } else {
+        document.body.classList.remove("light-theme");
+        document.getElementById("buttonForChangeTheme").textContent = "🌙";
+    }
+});
+
+function changeTheme() {
+    const isLight = document.body.classList.toggle("light-theme");
     const button = document.getElementById("buttonForChangeTheme");
-    const paragraphs = document.querySelectorAll("p");
 
-    button.textContent = '☀️';
-    document.body.style.backgroundColor = 'aliceblue';
-    
-    paragraphs.forEach(p =>{
-        p.style.color = 'rgb(29, 23, 35)';
-    });
-
-    localStorage.setItem('theme', 'light');
-}
-
-function setDarkTheme() {
-    const button = document.getElementById("buttonForChangeTheme");
-    const paragraphs = document.querySelectorAll("p");
-
-    button.textContent = '🌙';
-    document.body.style.backgroundColor =  'rgb(29, 23, 35)';
-
-    paragraphs.forEach(p =>{
-        p.style.color = 'aliceblue';
-    });
-
-    localStorage.setItem('theme', 'dark');
+    if (isLight) {
+        button.textContent = "☀️";
+        localStorage.setItem("theme", "light");
+    } else {
+        button.textContent = "🌙";
+        localStorage.setItem("theme", "dark");
+    }
 }
 //смена темы
 

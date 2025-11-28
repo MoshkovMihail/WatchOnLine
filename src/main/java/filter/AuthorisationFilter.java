@@ -53,7 +53,7 @@ public class AuthorisationFilter extends HttpFilter {
             HttpSession session = ((HttpServletRequest) req).getSession(false);
 
             if (session == null || session.getAttribute("user") == null) {
-                ((HttpServletResponse) resp).sendRedirect(ctx + "/registration");
+                ((HttpServletResponse) resp).sendRedirect(ctx + "/login");
                 return;
             } else {
                 chain.doFilter(req, resp);

@@ -6,23 +6,17 @@ import java.sql.*;
 
 public class UserDAO {
 
-    private static final String CREATE_TABLE_SQL = """
-            CREATE TABLE IF NOT EXISTS usr (
-                id BIGSERIAL PRIMARY KEY,
-                username VARCHAR(255) UNIQUE,
-                email VARCHAR(255) NOT NULL,
-                hash_password VARCHAR(255) NOT NULL
-            );
-            """;
-
     private static final String GET_USER_BY_ID_SQL =
-            "SELECT id, username, email, hash_password FROM usr WHERE id = ?";
+            "SELECT id, username, email, hash_password, avatar_path FROM usr WHERE id = ?";
 
     private static final String GET_USER_BY_USERNAME_SQL =
-            "SELECT id, username, email, hash_password FROM usr WHERE username = ?";
+            "SELECT id, username, email, hash_password, avatar_path FROM usr WHERE username = ?";
 
     private static final String USER_EXISTS_BY_USERNAME_SQL =
             "SELECT 1 FROM usr WHERE username = ?";
+
+    private static final String USER_EXISTS_BY_ID_SQL =
+            "SELECT 1 FROM usr WHERE id = ?";
 
     private static final String INSERT_USER_SQL =
             "INSERT INTO usr (username, email, hash_password) VALUES (?, ?, ?)";
@@ -30,19 +24,11 @@ public class UserDAO {
     private static final String DELETE_USER_BY_ID_SQL =
             "DELETE FROM usr WHERE id = ?";
 
-    private static final String GET_USER_BY_CREDS =
-            "select * from usr where username = ? and hash_password = ?";
-
-
-    public void createUserTable() {
-        try(Connection conn = ConnectionManager.getConnection();
-            Statement statement = conn.createStatement()) {
-            statement.executeUpdate(CREATE_TABLE_SQL);
-
-        } catch (SQLException e){
-            throw new IllegalStateException("Ошибка создания таблицы usr", e);
-        }
-    }
+    private static final String UPDATE_USERNAME_SQL = """
+            UPDATE usr
+            SET username = ?
+            WHERE id = ?
+            """;
 
     public UserEntity getUser(long id) {
         try (Connection conn = ConnectionManager.getConnection();
@@ -56,15 +42,27 @@ public class UserDAO {
         }
     }
 
+    public boolean isUserExist(Long id) {
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps =  conn.prepareStatement(USER_EXISTS_BY_ID_SQL)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()){
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Ошибка с проверки существования пользователя по id", e);
+        }
+    }
+
     public boolean isUserExist(String username) {
         try (Connection conn = ConnectionManager.getConnection();
-                PreparedStatement ps =  conn.prepareStatement(GET_USER_BY_USERNAME_SQL)) {
+                PreparedStatement ps =  conn.prepareStatement(USER_EXISTS_BY_USERNAME_SQL)) {
                 ps.setString(1, username);
                 try (ResultSet rs = ps.executeQuery()){
                     return rs.next();
                 }
         } catch (SQLException e) {
-            throw new IllegalStateException("Ошибка с проверки существования пользователя по id", e);
+            throw new IllegalStateException("Ошибка с проверки существования пользователя по username", e);
         }
     }
 
@@ -94,19 +92,18 @@ public class UserDAO {
         }
     }
 
-//не безопастно от sql инъекций
-//    public void updateUser(String username) throws SQLException {
-//        getStatement().executeUpdate("""
-//                update usr
-//                set username = '""" + username + "' where username = " + username + ";");
-//    }
 
     public void deleteUserById(Long id) {
         try (Connection conn = ConnectionManager.getConnection();
-            PreparedStatement ps = conn.prepareStatement(DELETE_USER_BY_ID_SQL)){
+             PreparedStatement ps = conn.prepareStatement(DELETE_USER_BY_ID_SQL)) {
+
             ps.setLong(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e){
+            int updated = ps.executeUpdate();
+            if (updated == 0) {
+                throw new IllegalStateException("Пользователь не найден");
+            }
+
+        } catch (SQLException e) {
             throw new IllegalStateException("Ошибка удаления пользователя", e);
         }
 
@@ -118,10 +115,29 @@ public class UserDAO {
                     rs.getLong("id"),
                     rs.getString("username"),
                     rs.getString("email"),
-                    rs.getString("hash_password")
-            );
+                    rs.getString("hash_password"),
+                    rs.getString("avatar_path")      );
         }
 
         return null;
     }
+
+
+    public void updateUsername(String newUsername, long userId) {
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(UPDATE_USERNAME_SQL)) {
+
+            ps.setString(1, newUsername);
+            ps.setLong(2, userId);
+
+            int updated = ps.executeUpdate();
+            if (updated == 0) {
+                throw new IllegalStateException("Пользователь не найден для обновления username");
+            }
+
+        } catch (SQLException e) {
+            throw new IllegalStateException("Ошибка при обновлении username", e);
+        }
+    }
+
 }
