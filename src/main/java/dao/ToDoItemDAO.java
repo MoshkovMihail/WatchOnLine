@@ -13,7 +13,7 @@ public class ToDoItemDAO {
         SELECT id, list_id, text, deadline, created_at, done
         FROM todo_item
         WHERE list_id = ?
-        ORDER BY created_at ASC
+        ORDER BY deadline ASC
         """;
 
     private static final String INSERT_ITEM_SQL = """
