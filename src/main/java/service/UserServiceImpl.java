@@ -54,4 +54,9 @@ public class UserServiceImpl implements UserService {
         userDAO.updateUsername(newUsername, id);
         return true;
     }
+
+    @Override
+    public boolean updateAvatarPath(long userId, String avatarPath) {
+        return userDAO.updateAvatarPath(userId, avatarPath);
+    }
 }

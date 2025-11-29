@@ -1,22 +1,16 @@
 package dao;
 
+import config.ConnectionManager;
 import entity.UserEntity;
 
 import java.sql.*;
 
 public class UserDAO {
-
-    private static final String GET_USER_BY_ID_SQL =
-            "SELECT id, username, email, hash_password, avatar_path FROM usr WHERE id = ?";
-
     private static final String GET_USER_BY_USERNAME_SQL =
             "SELECT id, username, email, hash_password, avatar_path FROM usr WHERE username = ?";
 
     private static final String USER_EXISTS_BY_USERNAME_SQL =
             "SELECT 1 FROM usr WHERE username = ?";
-
-    private static final String USER_EXISTS_BY_ID_SQL =
-            "SELECT 1 FROM usr WHERE id = ?";
 
     private static final String INSERT_USER_SQL =
             "INSERT INTO usr (username, email, hash_password) VALUES (?, ?, ?)";
@@ -29,28 +23,22 @@ public class UserDAO {
             SET username = ?
             WHERE id = ?
             """;
+    private static final String UPDATE_AVATAR_SQL =
+            "UPDATE usr SET avatar_path = ? WHERE id = ?";
 
-    public UserEntity getUser(long id) {
-        try (Connection conn = ConnectionManager.getConnection();
-            PreparedStatement ps = conn.prepareStatement(GET_USER_BY_ID_SQL)) {
-            ps.setLong(1, id);
-            try(ResultSet rs = ps.executeQuery()) {
-                return convertFromResultSet(rs);
-            }
-        } catch (SQLException e){
-            throw new IllegalStateException("Ошибка с получением пользователя по id", e);
-        }
-    }
 
-    public boolean isUserExist(Long id) {
+    public boolean updateAvatarPath(long userId, String avatarPath) {
         try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement ps =  conn.prepareStatement(USER_EXISTS_BY_ID_SQL)) {
-            ps.setLong(1, id);
-            try (ResultSet rs = ps.executeQuery()){
-                return rs.next();
-            }
+             PreparedStatement ps = conn.prepareStatement(UPDATE_AVATAR_SQL)) {
+
+            ps.setString(1, avatarPath);
+            ps.setLong(2, userId);
+
+            int updated = ps.executeUpdate();
+            return updated > 0;
+
         } catch (SQLException e) {
-            throw new IllegalStateException("Ошибка с проверки существования пользователя по id", e);
+            throw new IllegalStateException("Ошибка при обновлении аватара", e);
         }
     }
 
@@ -139,5 +127,4 @@ public class UserDAO {
             throw new IllegalStateException("Ошибка при обновлении username", e);
         }
     }
-
 }

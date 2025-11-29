@@ -49,6 +49,8 @@ public class RegistationServlet extends HttpServlet {
             errorMessage = "Введите корректный email";
         } else if (password == null || password.trim().isEmpty()) {
             errorMessage = "Пароль не может быть пустым";
+        } else if (password.length() < 6) {
+            errorMessage = "Пароль не может быть меньше 6 символов";
         }
 
         if (errorMessage != null) {

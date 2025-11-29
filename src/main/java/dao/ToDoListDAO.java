@@ -1,5 +1,6 @@
 package dao;
 
+import config.ConnectionManager;
 import entity.ToDoListEntity;
 
 import java.sql.*;
@@ -21,8 +22,8 @@ public class ToDoListDAO {
         RETURNING id, room_id, name, created_by, created_at
         """;
 
-    private static final String DELETE_TO_DO_BY_ID_SQL =
-            "DELETE FROM todo_list WHERE id = ?";
+    private static final String DELETE_TO_DO_LIST_BY_ID_SQL =
+            "DELETE FROM todo_list WHERE id = ? and created_by = ?";
 
     public List<ToDoListEntity> findByRoomId(long roomId) {
         List<ToDoListEntity> lists = new ArrayList<>();
@@ -75,19 +76,19 @@ public class ToDoListDAO {
         );
     }
 
-    private void deleteById(long id) {
+    public boolean deleteById(long id, long user_id) {
         try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(DELETE_TO_DO_BY_ID_SQL)) {
+             PreparedStatement ps = conn.prepareStatement(DELETE_TO_DO_LIST_BY_ID_SQL)) {
 
             ps.setLong(1, id);
+            ps.setLong(2, user_id);
             int updated = ps.executeUpdate();
-            if (updated == 0) {
-                throw new IllegalStateException("ToDo лист не найден");
-            }
+
+
+            return updated > 0;
 
         } catch (SQLException e) {
             throw new IllegalStateException("Ошибка удаления ToDo листа", e);
         }
-
     }
 }

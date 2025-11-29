@@ -33,7 +33,7 @@ public class DeleteRoomServlet extends HttpServlet {
         String roomIdParam = req.getParameter("roomId");
         String ctx = req.getContextPath();
 
-        // нет параметра или он пустой → назад на список комнат
+
         if (roomIdParam == null || roomIdParam.isBlank()) {
             resp.sendRedirect(ctx + "/rooms");
             return;
@@ -43,17 +43,13 @@ public class DeleteRoomServlet extends HttpServlet {
         try {
             roomId = Long.parseLong(roomIdParam);
         } catch (NumberFormatException e) {
-            // кто-то полез руками править форму / URL
             resp.sendRedirect(ctx + "/rooms");
             return;
         }
 
-        try {
-            roomService.deleteRoom(roomId, user.getId());
-        } catch (IllegalStateException ex) {
-            // здесь можно потом добавить сообщение об ошибке в сессию
-            // session.setAttribute("rooms_error", ex.getMessage());
-        }
+
+        roomService.deleteRoom(roomId, user.getId());
+
 
         resp.sendRedirect(ctx + "/rooms");
     }

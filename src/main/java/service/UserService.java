@@ -12,4 +12,6 @@ public interface UserService {
     void deleteUserById(Long id);
 
     boolean updateUsername(String newUsername, Long id);
+
+    boolean updateAvatarPath(long userId, String avatarPath);
 }

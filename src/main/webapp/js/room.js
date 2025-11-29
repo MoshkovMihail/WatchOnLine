@@ -1,29 +1,46 @@
-// Установка даты, до которой мы отсчитываем время to
-var countDownDate = new Date("Jan 1, 2026 00:00:00").getTime();
+document.addEventListener("DOMContentLoaded", function () {
+  // Находим все элементы таймеров
+  const timers = document.querySelectorAll(".deadline-timer");
 
-// Обновить обратный отсчет каждую секунду
-var x = setInterval(function() {
-
-  // Получить сегодняшнюю дату и время
-  var now = new Date().getTime();
-
-  // Найти расстояние между текущим моментом и датой обратного отсчета
-  var distance = countDownDate - now;
-
-  // Расчеты времени для дней, часов, минут и секунд
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  // Отображаем результат в элементе с id="time"
-  document.getElementById("time").innerHTML ="Осталось до нг: " + days + "дней " + hours + "часов "
-  + minutes + "Минут " + seconds + "секунд ";
-
-  // Если отсчет завершен, напишите какой-нибудь текст
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("time").innerHTML = "С Новым Годом!";
+  if (timers.length === 0) {
+    return; // нет задач с дедлайнами – нечего считать
   }
-}, 1000);
 
+  // Для каждого таймера запускаем свой setInterval
+  timers.forEach(function (span) {
+    const deadlineStr = span.getAttribute("data-deadline"); // строка типа "2025-12-31T23:59:00"
+
+    const deadline = new Date(deadlineStr);
+
+    if (isNaN(deadline.getTime())) {
+      // если дата не распарсилась
+      span.textContent = "дедлайн не задан";
+      return;
+    }
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = deadline.getTime() - now;
+
+      if (distance <= 0) {
+        span.textContent = "дедлайн истёк";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      span.textContent =
+        " осталось: " +
+        (days > 0 ? days + "д " : "") +
+        String(hours).padStart(2, "0") + "ч " +
+        String(minutes).padStart(2, "0") + "м " +
+        String(seconds).padStart(2, "0") + "с";
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  });
+});

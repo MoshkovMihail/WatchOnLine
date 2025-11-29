@@ -1,6 +1,7 @@
 package config;
 
 import dao.RoomDAO;
+import dao.ToDoItemDAO;
 import dao.ToDoListDAO;
 import dao.UserDAO;
 import jakarta.servlet.ServletContext;
@@ -26,6 +27,9 @@ public class ApplicationListener implements ServletContextListener {
         ToDoListDAO toDoListDAO= new ToDoListDAO();
         ToDoListService toDoListService = new ToDoListServiceImpl(toDoListDAO);
         context.setAttribute("toDoListService", toDoListService);
-        //todo перенести все сервисы сюда в контекст
+
+        ToDoItemDAO toDoItemDAO = new ToDoItemDAO();
+        ToDoItemService toDoItemService = new ToDoItemServiceImpl(toDoItemDAO);
+        context.setAttribute("toDoItemService", toDoItemService);
     }
 }

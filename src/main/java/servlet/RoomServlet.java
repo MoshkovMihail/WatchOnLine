@@ -1,6 +1,8 @@
 package servlet;
 
 import entity.RoomEntity;
+import entity.ToDoItemEntity;
+import entity.ToDoListEntity;
 import entity.UserEntity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,14 +11,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.RoomService;
+import service.ToDoItemService;
 import service.ToDoListService;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet("/room")
 public class RoomServlet extends HttpServlet {
     private RoomService roomService;
     private ToDoListService toDoListService;
+    private ToDoItemService toDoItemService;
 
     @Override
     public void init() throws ServletException {
@@ -29,6 +36,12 @@ public class RoomServlet extends HttpServlet {
         if (toDoListService == null) {
             throw new IllegalStateException("toDoListService is null");
         }
+
+        this.toDoItemService = (ToDoItemService) getServletContext().getAttribute("toDoItemService");
+        if (toDoItemService == null) {
+            throw new IllegalStateException("toDoItemService is null");
+        }
+
     }
 
     @Override
@@ -53,8 +66,6 @@ public class RoomServlet extends HttpServlet {
             return;
         }
 
-        HttpSession session = req.getSession();
-        UserEntity user =  (UserEntity) session.getAttribute("user");
 
 
         var todoLists = toDoListService.findByRoomId(roomId);
@@ -62,9 +73,16 @@ public class RoomServlet extends HttpServlet {
 
         var members = roomService.getRoomMembers(roomId);
 
+        Map<Long, List<ToDoItemEntity>> itemsByList = new HashMap<>();
+        for (ToDoListEntity list : todoLists) {
+            itemsByList.put(list.getId(), toDoItemService.findByListId(list.getId()));
+        }
+
+
         req.setAttribute("room", room);
         req.setAttribute("todoLists", todoLists);
         req.setAttribute("members", members);
+        req.setAttribute("todoItemsByList", itemsByList);
 
         req.getRequestDispatcher("/jsp/room.jsp").forward(req, resp);
     }

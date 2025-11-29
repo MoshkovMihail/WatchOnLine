@@ -13,27 +13,36 @@
 <body>
     <jsp:include page="/jsp/header.jsp"/>
 
-    <form action="${pageContext.request.contextPath}/connectToRoom"
-          class="join"
-          method="post"
-          id="regForm">
+    <main class="connect-page">
+        <section class="join-card">
+            <h1>Присоединиться к комнате</h1>
+            <p class="join-subtitle">
+                Введите ID комнаты, который вам прислал создатель.
+            </p>
 
-        <h2>Присоединиться к комнате</h2>
+            <c:if test="${not empty error_message}">
+                <div class="error">
+                    <c:out value="${error_message}"/>
+                </div>
+            </c:if>
 
-        <label for="room_id"><p>Введите ID комнаты</p></label>
+            <form action="${pageContext.request.contextPath}/connectToRoom"
+                  method="post"
+                  class="join-form">
 
-        <c:if test="${not empty error_message}">
-            <div class="error">
-                <c:out value="${error_message}"/>
-            </div>
-        </c:if>
+                <label for="room_id" class="join-label">ID комнаты</label>
 
-        <input type="text"
-               id="room_id"
-               name="room_id"
-               placeholder="например, 1"/>
+                <input type="text"
+                       id="room_id"
+                       name="room_id"
+                       class="join-input"
+                       placeholder="например, 1"/>
 
-        <button type="submit">Присоединиться к комнате</button>
-    </form>
+                <button type="submit" class="btn">
+                    Присоединиться
+                </button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

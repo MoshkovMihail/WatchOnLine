@@ -1,31 +1,42 @@
+header {
+    width: 100%;
+}
+
+/* Делаем навигацию по центру */
+.navigation {
+    text-align: center;
+    display: flex;
+    justify-content: center; /* центрируем сам <nav> */
+}
+
+/* Центруем содержимое меню */
 .navigation ul {
     box-sizing: border-box;
     background-color: #44508e;
-    text-align: center;
-    stroke-linecap: round;
+    margin: 0;                   /* убираем стандартные отступы ul */
+    padding: 0.5rem 1rem;
+    list-style: none;
+
+    display: flex;               /* flex-раскладка */
+    align-items: center;         /* по вертикали */
+    justify-content: center;     /* по горизонтали */
+    gap: 0.5rem;                 /* расстояние между пунктами */
 }
 
+/* Пункты меню в одну линию */
 .navigation li {
+    display: flex;
+    align-items: center;
     text-align: center;
-    display: inline;
 }
 
-.navigation li:hover {
-    background-color: rgba(28, 21, 64, 0.566);
-}
-
-body {
-    background: rgb(29, 23, 35);    
-}
-
-
-p {
-    color: aliceblue;
-}
-
-
+/* Кнопка выбора темы встраивается красиво в линию */
 #buttonForChangeTheme {
     background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
 }
 
 /* Кнопка выпадающего списка */
@@ -125,4 +136,193 @@ span, a, li, ul, ol,
 label, input, button,
 strong, em, small, div {
     color: inherit;
+}
+
+/* === Общие кнопки =================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 0.95rem;
+    text-decoration: none;
+    font-weight: 500;
+
+    transition: background-color 0.15s ease, transform 0.1s ease,
+                box-shadow 0.15s ease;
+}
+
+.btn:hover {
+    background-color: var(--btn-bg-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background-color: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+    border: 1px solid var(--btn-secondary-border);
+}
+
+/* === Страница /rooms ================================= */
+
+.rooms-page {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem 3rem;
+}
+
+.rooms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    margin: 0 0 0.3rem;
+}
+
+.page-subtitle {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.rooms-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* === Карточки комнат ================================= */
+
+.rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.room-card {
+    display: block;
+    padding: 1rem 1.2rem;
+    border-radius: 0.9rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none;
+
+    transition: background 0.15s ease, transform 0.1s ease,
+                box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+body.light-theme .room-card {
+    background: rgba(0,0,0,0.02);
+    border-color: rgba(0,0,0,0.06);
+}
+
+.room-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    border-color: rgba(91, 153, 246, 0.6);
+    background: rgba(91,153,246,0.10);
+}
+
+body.light-theme .room-card:hover {
+    background: rgba(91,153,246,0.08);
+}
+
+.room-card__name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.room-card__meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* === Пустое состояние ================================ */
+
+.empty-state {
+    margin-top: 2rem;
+    padding: 1.2rem 1.4rem;
+    border-radius: 0.9rem;
+    border: 1px dashed rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.03);
+}
+
+body.light-theme .empty-state {
+    border-color: rgba(0,0,0,0.25);
+    background: rgba(0,0,0,0.02);
+}
+
+.empty-state-hint {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.main-header {
+    margin-bottom: 1rem;
+}
+
+/* Делаем навигацию более аккуратной */
+.navigation {
+    background-color: #44508e;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+}
+
+.navigation .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Сохраняем твой базовый стиль для li, но уточняем */
+.navigation .nav-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Кнопки / ссылки в меню */
+.navigation .dropbtn,
+.navigation .nav-link {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+}
+
+/* Ссылки без подчёркивания */
+.navigation a {
+    text-decoration: none;
+}
+
+/* Кнопка смены темы визуально полупрозрачная */
+#buttonForChangeTheme {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
 }

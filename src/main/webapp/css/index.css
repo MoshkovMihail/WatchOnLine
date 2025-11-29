@@ -1,12 +1,72 @@
-
-#Hello {
-    font-size: 5em;
-    text-align: center;
+.page {
+    min-height: calc(100vh - 80px); /* учёт шапки, чтобы всё всё равно центрировалось */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
 }
 
-#gaid {
-    font: sans-serif;
-    text-align: center;
+.page-inner {
+    max-width: 720px;
+    width: 100%;
 }
 
+/* Карточка на главной */
+.card {
+    background: rgba(15, 23, 42, 0.92);       /* тёмная «стеклянная» карта */
+    border-radius: 16px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    backdrop-filter: blur(12px);
+}
 
+/* Для светлой темы – делаем карту светлой */
+body.light-theme .card {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(148, 163, 184, 0.5);
+}
+
+/* Заголовок */
+.page-title {
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+/* Подзаголовок */
+.page-subtitle {
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+}
+
+/* Основной текст внутри карточки */
+.card p {
+    margin: 0.4rem 0;
+    line-height: 1.5;
+}
+
+/* Немного выделим шаги */
+.card p:nth-of-type(2),
+.card p:nth-of-type(3),
+.card p:nth-of-type(4) {
+    position: relative;
+    padding-left: 0.8rem;
+}
+
+.card p:nth-of-type(2)::before,
+.card p:nth-of-type(3)::before,
+.card p:nth-of-type(4)::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    opacity: 0.6;
+}
+
+/* Последнее «Удачной совместной работы!» чуть подчеркнуть */
+.card p:last-of-type {
+    margin-top: 1.2rem;
+    font-weight: 500;
+}

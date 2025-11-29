@@ -56,6 +56,10 @@ public class AuthorisationFilter extends HttpFilter {
                 ((HttpServletResponse) resp).sendRedirect(ctx + "/login");
                 return;
             } else {
+                if (requestURI.equals(ctx + "/registration") || requestURI.equals(ctx + "/login")) {
+                    ((HttpServletResponse) resp).sendRedirect(ctx + "/profile");
+                    return;
+                }
                 chain.doFilter(req, resp);
                 return;
             }

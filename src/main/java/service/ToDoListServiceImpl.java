@@ -20,4 +20,9 @@ public class ToDoListServiceImpl implements ToDoListService {
     public ToDoListEntity create(long roomId, long userId, String name) {
         return toDoListDAO.create(roomId, name, userId);
     }
+
+    @Override
+    public boolean deleteById(long id, long user_id) {
+        return toDoListDAO.deleteById(id, user_id);
+    }
 }

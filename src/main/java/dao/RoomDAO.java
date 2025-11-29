@@ -1,5 +1,6 @@
 package dao;
 
+import config.ConnectionManager;
 import entity.RoomEntity;
 import entity.UserEntity;
 
@@ -151,11 +152,8 @@ public class RoomDAO {
             ps.setLong(2, ownerId);
             int updated = ps.executeUpdate();
 
-            System.out.println("DELETE roomId=" + roomId + ", ownerId=" + ownerId);
-            System.out.println("updated rows = " + updated);
 
-
-            return updated > 0; // true – комнату удалили, false – нет прав или не существует
+            return updated > 0;
 
         } catch (SQLException e) {
             throw new IllegalStateException("Ошибка при удалении комнаты", e);

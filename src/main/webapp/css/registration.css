@@ -1,15 +1,117 @@
-input { 
+.auth-page {
+    max-width: 960px;
+    margin: 3rem auto 4rem;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-card {
     width: 100%;
-    padding: 10px;
-    margin: 5px 0;
+    max-width: 420px;
+    padding: 1.8rem 1.6rem;
+    border-radius: 1.2rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+body.light-theme .auth-card {
+    background: rgba(255,255,255,0.97);
+    border-color: rgba(0,0,0,0.08);
+    box-shadow: 0 14px 30px rgba(15,23,42,0.12);
+}
+
+.auth-card h1 {
+    margin: 0 0 0.4rem;
+    font-size: 1.6rem;
+}
+
+.auth-subtitle {
+    margin: 0 0 1.3rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* форма */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.form-group input {
+    padding: 0.45rem 0.7rem;
+    border-radius: 0.7rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.35);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #5b99f6;
+}
+
+body.light-theme .form-group input {
+    background: rgba(255,255,255,0.98);
+    border-color: rgba(0,0,0,0.15);
+}
+
+.auth-btn {
+    margin-top: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    align-self: flex-start;
+}
+
+.auth-btn:hover {
+    background-color: var(--btn-bg-hover);
+}
+
+/* ошибки + низ карточки */
+
+.global-error {
+    margin-bottom: 0.8rem;
 }
 
 .error {
-    color: red;
-    font-size: 14px;
+    font-size: 0.8rem;
 }
 
-.success {
-    color: green;
-    text-align: center;
+.auth-footer {
+    margin-top: 1.2rem;
+    font-size: 0.85rem;
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    color: var(--text-muted);
+}
+
+.auth-link {
+    text-decoration: none;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
 }

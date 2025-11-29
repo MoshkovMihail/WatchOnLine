@@ -1,11 +1,302 @@
+/* === Страница комнаты =============================== */
 
-.connectedUsers img {
-    width: 5%;
-    height: auto;
-    border-radius: 100%;
+.room-page {
+    max-width: 1000px;
+    margin: 2rem auto 3rem;
+    padding: 0 1rem;
 }
 
-.connectedUsers li {
-    
+/* --- Заголовок комнаты --- */
+
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.room-title {
+    margin: 0 0 0.3rem;
+    font-size: 1.8rem;
+}
+
+.room-meta {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.room-id {
+    font-family: monospace;
+}
+
+/* --- Общий вид секций --- */
+
+.room-section {
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.4rem;
+    border-radius: 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+body.light-theme .room-section {
+    background: rgba(0,0,0,0.02);
+    border-color: rgba(0,0,0,0.06);
+}
+
+.room-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.room-section h2 {
+    margin: 0 0 0.2rem;
+}
+
+.room-muted {
+    margin: 0.2rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* === Участники комнаты ============================== */
+
+.members-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.7rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.member {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.3);
+}
+
+body.light-theme .member {
+    background: rgba(0,0,0,0.05);
+}
+
+.member-avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.member-name {
+    font-size: 0.95rem;
+}
+
+.member-tag {
+    font-size: 0.75rem;
+    margin-left: 0.4rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--text-muted);
+}
+
+.member-tag--owner {
+    border-color: #fbbf24;
+}
+
+/* === Создание списка ================================ */
+
+.create-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 260px;
+}
+
+.create-list__form {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.create-list__error {
+    font-size: 0.85rem;
+}
+
+/* Общие инпуты */
+
+.input-text,
+.input-datetime {
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.35);
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.input-text:focus,
+.input-datetime:focus {
+    border-color: #5b99f6;
+}
+
+body.light-theme .input-text,
+body.light-theme .input-datetime {
+    background: rgba(255,255,255,0.9);
+    border-color: rgba(0,0,0,0.18);
+}
+
+/* === Списки задач (карточки) ======================== */
+
+.room-section--lists {
+    margin-top: 2rem;
+}
+
+.todo-lists-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+}
+
+@media (min-width: 820px) {
+    .todo-lists-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.todo-list-card {
+    border-radius: 0.9rem;
+    padding: 0.9rem 1rem;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+body.light-theme .todo-list-card {
+    background: rgba(255,255,255,0.95);
+    border-color: rgba(0,0,0,0.12);
+}
+
+.todo-list-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.todo-list-title {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.todo-list-meta {
+    margin: 0.15rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* === Задачи ========================================= */
+
+.todo-items {
+    list-style: none;
+    margin: 0.4rem 0 0.6rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.todo-item__main {
+    flex: 1;
+    min-width: 0;
+}
+
+.todo-text {
+    font-size: 0.9rem;
+}
+
+.todo-text--done {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* Дедлайн и таймер */
+
+.todo-deadline {
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.todo-deadline__date {
+    color: var(--text-muted);
+}
+
+.deadline-timer {
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+/* Кнопки действий по задаче */
+
+.todo-item__actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.inline-form {
     display: inline;
+}
+
+/* Иконки-кнопки */
+
+.icon-button {
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.08);
+    border-radius: 999px;
+    padding: 0.1rem 0.4rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.icon-button--ok {
+    background: rgba(34, 197, 94, 0.15);
+}
+
+.icon-button--danger {
+    background: rgba(239, 68, 68, 0.18);
+}
+
+/* Кнопка удаления комнаты */
+
+.btn-danger {
+    background: #ef4444;
+    color: #fee2e2;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
 }
